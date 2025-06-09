@@ -1,12 +1,6 @@
 #include <iostream>
 #include <string>
 
-/** @param arr pointer to array */
-int getArrSize(int arr[])
-{
-    return sizeof(arr) / sizeof(arr[0]);
-}
-
 void printTitle(std::string text)
 {
     std::cout << "============================" << std::endl;
@@ -38,12 +32,13 @@ bool validateSelectedMenu(int menus[], int menusSize, int selectedMenu)
 int getUserSelectMenu()
 {
     int menus[]{0, 1};
+    int menusSize{sizeof(menus) / sizeof(menus[0])};
     int choice;
     std::cout << std::endl;
     std::cout << "Go to menu : ";
     std::cin >> choice;
 
-    bool isValidChoice{validateSelectedMenu(menus, getArrSize(menus), choice)};
+    bool isValidChoice{validateSelectedMenu(menus, menusSize, choice)};
 
     if (isValidChoice == false)
     {
@@ -65,11 +60,12 @@ void printStudentManagementMainMenu()
 int getUserStudentManagementMenu()
 {
     int menus[]{0, 1};
+    int menusSize{sizeof(menus) / sizeof(menus[0])};
     int choice;
     std::cout << "Go to menu : ";
     std::cin >> choice;
 
-    bool isValidChoice{validateSelectedMenu(menus, getArrSize(menus), choice)};
+    bool isValidChoice{validateSelectedMenu(menus, menusSize, choice)};
 
     if (isValidChoice == false)
     {
