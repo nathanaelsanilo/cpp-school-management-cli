@@ -1,6 +1,44 @@
 #include <iostream>
 #include <string>
 
+void printTitle(std::string title);
+void printMainMenu();
+bool validateSelectedMenu(int menus[], int menusSize, int selectedMenu);
+int getUserSelectMenu();
+void printStudentManagementMainMenu();
+int getUserStudentManagementMenu();
+void enterStudentManagementMainMenu();
+
+int main()
+{
+    printTitle("School Management");
+
+    bool isRunning{true};
+    while (isRunning)
+    {
+        printMainMenu();
+
+        int choice = getUserSelectMenu();
+        switch (choice)
+        {
+        case 1:
+        {
+            enterStudentManagementMainMenu();
+            break;
+        }
+        case 0:
+        {
+            isRunning = false;
+        }
+        }
+
+        std::cout << "============================" << std::endl;
+    }
+    std::cout << "Program End" << std::endl;
+
+    return 0;
+}
+
 void printTitle(std::string text)
 {
     std::cout << "============================" << std::endl;
@@ -93,34 +131,4 @@ void enterStudentManagementMainMenu()
             std::cout << "user choice : " << choice << std::endl;
         }
     }
-}
-
-int main()
-{
-    printTitle("School Management");
-
-    bool isRunning{true};
-    while (isRunning)
-    {
-        printMainMenu();
-
-        int choice = getUserSelectMenu();
-        switch (choice)
-        {
-        case 1:
-        {
-            enterStudentManagementMainMenu();
-            break;
-        }
-        case 0:
-        {
-            isRunning = false;
-        }
-        }
-
-        std::cout << "============================" << std::endl;
-    }
-    std::cout << "Program End" << std::endl;
-
-    return 0;
 }
