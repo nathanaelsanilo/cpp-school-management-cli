@@ -9,6 +9,7 @@ int getUserSelectMenu();
 void printStudentManagementMainMenu();
 int getUserStudentManagementMenu();
 void enterStudentManagementMainMenu();
+void insertNewStudent();
 
 std::vector<std::string> students{};
 
@@ -136,23 +137,36 @@ void enterStudentManagementMainMenu()
         }
         case 1:
         {
-            std::string inputStudent{};
-            std::cout << "Insert new student name : " << std::endl;
-            std::cin >> inputStudent;
-            students.push_back(inputStudent);
-            std::cout << "Data inserted" << std::endl;
+            insertNewStudent();
             break;
         }
         case 2:
         {
             std::cout << "List of students : " << std::endl;
-            for (size_t i{0}; i < students.size(); ++i)
+            if (students.size() == 0)
             {
-                std::cout << (i + 1) << ". " << students.at(i) << std::endl;
+                std::cout << "List is empty. Create a new one!" << std::endl;
             }
+            else
+            {
+                for (size_t i{0}; i < students.size(); ++i)
+                {
+                    std::cout << (i + 1) << ". " << students.at(i) << std::endl;
+                }
+            }
+            break;
         }
         default:
             break;
         }
     }
+}
+
+void insertNewStudent()
+{
+    std::string inputStudent{};
+    std::cout << "Insert new student name : " << std::endl;
+    std::cin >> inputStudent;
+    students.push_back(inputStudent);
+    std::cout << "Data inserted!" << std::endl;
 }
