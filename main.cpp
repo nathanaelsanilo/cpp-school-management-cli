@@ -10,6 +10,8 @@ void printStudentManagementMainMenu();
 int getUserStudentManagementMenu();
 void enterStudentManagementMainMenu();
 
+std::vector<std::string> students{};
+
 int main()
 {
 
@@ -119,7 +121,6 @@ int getUserStudentManagementMenu()
 void enterStudentManagementMainMenu()
 {
     printTitle("Student Management Main Menu");
-    std::vector<std::string> students{};
     bool isRunning{true};
     while (isRunning)
     {
