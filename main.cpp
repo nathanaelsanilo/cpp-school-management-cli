@@ -5,11 +5,12 @@
 void printTitle(std::string title);
 void printMainMenu();
 bool validateSelectedMenu(int menus[], int menusSize, int selectedMenu);
-int getUserSelectMenu();
+int getUserSelectMainMenu();
 void printStudentManagementMainMenu();
 int getUserStudentManagementMenu();
 void enterStudentManagementMainMenu();
 void insertNewStudent();
+void printStudentList();
 
 std::vector<std::string> students{};
 
@@ -23,7 +24,7 @@ int main()
     {
         printMainMenu();
 
-        int choice = getUserSelectMenu();
+        int choice = getUserSelectMainMenu();
         switch (choice)
         {
         case 1:
@@ -72,20 +73,26 @@ bool validateSelectedMenu(int menus[], int menusSize, int selectedMenu)
     return isValidChoice;
 }
 
-int getUserSelectMenu()
+int getUserSelectMainMenu()
 {
     int menus[]{0, 1};
     int menusSize{sizeof(menus) / sizeof(menus[0])};
+    bool validating{true};
     int choice;
-    std::cout << std::endl;
-    std::cout << "Go to menu : ";
-    std::cin >> choice;
 
-    bool isValidChoice{validateSelectedMenu(menus, menusSize, choice)};
-
-    if (isValidChoice == false)
+    while (validating)
     {
-        std::cout << "Menu is not valid! Try again. " << std::endl;
+        std::cout << std::endl;
+        std::cout << "Go to menu : ";
+        std::cin >> choice;
+        if (validateSelectedMenu(menus, menusSize, choice) == true)
+        {
+            validating = false;
+        }
+        else
+        {
+            std::cout << "Menu is not valid! Try again. " << std::endl;
+        }
     }
 
     return choice;
@@ -105,15 +112,22 @@ int getUserStudentManagementMenu()
 {
     int menus[]{0, 1, 2};
     int menusSize{sizeof(menus) / sizeof(menus[0])};
+    bool validating{true};
     int choice;
-    std::cout << "Go to menu : ";
-    std::cin >> choice;
 
-    bool isValidChoice{validateSelectedMenu(menus, menusSize, choice)};
-
-    if (isValidChoice == false)
+    while (validating)
     {
-        std::cout << "Menu is not valid! Try again. " << std::endl;
+        std::cout << std::endl;
+        std::cout << "Go to menu : ";
+        std::cin >> choice;
+        if (validateSelectedMenu(menus, menusSize, choice) == true)
+        {
+            validating = false;
+        }
+        else
+        {
+            std::cout << "Menu is not valid! Try again. " << std::endl;
+        }
     }
 
     return choice;
@@ -142,18 +156,7 @@ void enterStudentManagementMainMenu()
         }
         case 2:
         {
-            std::cout << "List of students : " << std::endl;
-            if (students.size() == 0)
-            {
-                std::cout << "List is empty. Create a new one!" << std::endl;
-            }
-            else
-            {
-                for (size_t i{0}; i < students.size(); ++i)
-                {
-                    std::cout << (i + 1) << ". " << students.at(i) << std::endl;
-                }
-            }
+            printStudentList();
             break;
         }
         default:
@@ -169,4 +172,20 @@ void insertNewStudent()
     std::cin >> inputStudent;
     students.push_back(inputStudent);
     std::cout << "Data inserted!" << std::endl;
+}
+
+void printStudentList()
+{
+    std::cout << "List of students : " << std::endl;
+    if (students.size() == 0)
+    {
+        std::cout << "List is empty. Create a new one!" << std::endl;
+    }
+    else
+    {
+        for (size_t i{0}; i < students.size(); ++i)
+        {
+            std::cout << (i + 1) << ". " << students.at(i) << std::endl;
+        }
+    }
 }
