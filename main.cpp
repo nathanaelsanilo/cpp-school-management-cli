@@ -11,6 +11,7 @@ int getUserStudentManagementMenu();
 void enterStudentManagementMainMenu();
 void insertNewStudent();
 void printStudentList();
+void deleteStudent();
 
 std::vector<std::string> students{};
 
@@ -104,13 +105,14 @@ void printStudentManagementMainMenu()
     std::cout << "Main menu:" << std::endl;
     std::cout << "1. Register New Student" << std::endl;
     std::cout << "2. Show Student List" << std::endl;
+    std::cout << "3. Delete student by name" << std::endl;
     std::cout << "0. Exit" << std::endl;
     std::cout << std::endl;
 }
 
 int getUserStudentManagementMenu()
 {
-    int menus[]{0, 1, 2};
+    int menus[]{0, 1, 2, 3}; // student management menus
     int menusSize{sizeof(menus) / sizeof(menus[0])};
     bool validating{true};
     int choice;
@@ -159,6 +161,11 @@ void enterStudentManagementMainMenu()
             printStudentList();
             break;
         }
+        case 3:
+        {
+            deleteStudent();
+            break;
+        }
         default:
             break;
         }
@@ -188,4 +195,40 @@ void printStudentList()
             std::cout << (i + 1) << ". " << students.at(i) << std::endl;
         }
     }
+}
+
+void deleteStudent()
+{
+    if (students.empty())
+    {
+        std::cout << "Student list is empty. Nothing has deleted" << std::endl;
+        return;
+    }
+
+    std::string inputStudent{};
+    std::cout << "You wish to delete student. Enter student name : ";
+    std::cin >> inputStudent;
+    std::cout << std::endl;
+
+    bool isStudentExist{false};
+    std::vector<std::string>::iterator studentIterator{};
+    for (std::vector<std::string>::iterator it = students.begin(); it != students.end(); ++it)
+    {
+        if (*it == inputStudent)
+        {
+            isStudentExist = true;
+            studentIterator = it;
+        }
+    }
+
+    if (isStudentExist == false)
+    {
+        std::cout << "This name \"" << inputStudent << "\" is not exist !" << std::endl;
+        return;
+    }
+
+    students.erase(studentIterator);
+
+    std::cout << std::endl;
+    std::cout << inputStudent << " has been deleted!" << std::endl;
 }
