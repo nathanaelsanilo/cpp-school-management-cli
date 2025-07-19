@@ -14,7 +14,41 @@ void printStudentList();
 void deleteStudent();
 void findStudentByName();
 
-std::vector<std::string> students{};
+class Student
+{
+    int id;
+    std::string name;
+
+public:
+    Student(std::string studentName, int studentId)
+    {
+        name = studentName;
+        id = studentId;
+    }
+
+    void setId(int value)
+    {
+        id = value;
+    }
+
+    int getId()
+    {
+        return id;
+    }
+
+    void setName(std::string value)
+    {
+        name = value;
+    }
+
+    std::string getName()
+    {
+        return name;
+    }
+};
+
+int seqStudentId{0};
+std::vector<Student> students{};
 
 int main()
 {
@@ -184,7 +218,8 @@ void insertNewStudent()
     std::string inputStudent{};
     std::cout << "Insert new student name : " << std::endl;
     std::cin >> inputStudent;
-    students.push_back(inputStudent);
+    Student student(inputStudent, ++seqStudentId);
+    students.push_back(student);
     std::cout << "Data inserted!" << std::endl;
 }
 
@@ -199,7 +234,8 @@ void printStudentList()
     {
         for (size_t i{0}; i < students.size(); ++i)
         {
-            std::cout << (i + 1) << ". " << students.at(i) << std::endl;
+            Student student{students.at(i)};
+            std::cout << (i + 1) << ". " << student.getName() << std::endl;
         }
     }
 }
@@ -218,10 +254,10 @@ void deleteStudent()
     std::cout << std::endl;
 
     bool isStudentExist{false};
-    std::vector<std::string>::iterator studentIterator{};
-    for (std::vector<std::string>::iterator it = students.begin(); it != students.end(); ++it)
+    std::vector<Student>::iterator studentIterator{};
+    for (std::vector<Student>::iterator it = students.begin(); it != students.end(); ++it)
     {
-        if (*it == inputStudent)
+        if (it->getName() == inputStudent)
         {
             isStudentExist = true;
             studentIterator = it;
@@ -242,15 +278,15 @@ void deleteStudent()
 
 void findStudentByName()
 {
-    std::vector<std::string> foundList{};
+    std::vector<Student> foundList{};
 
     std::string inputStudent{};
     std::cout << "Input name : ";
     std::cin >> inputStudent;
 
-    for (std::vector<std::string>::iterator it = students.begin(); it != students.end(); ++it)
+    for (std::vector<Student>::iterator it = students.begin(); it != students.end(); ++it)
     {
-        if (it->find(inputStudent) != std::string::npos)
+        if (it->getName().find(inputStudent) != std::string::npos)
         {
             foundList.push_back(*it);
         }
@@ -263,9 +299,10 @@ void findStudentByName()
     }
 
     std::cout << "Results : " << std::endl;
-    for (std::string item : foundList)
+    for (Student item : foundList)
     {
-        std::cout << item << std::endl;
+        std::cout << "id : " << item.getId() << std::endl;
+        std::cout << "name : " << item.getName() << std::endl;
     }
 
     std::cout << std::endl;
