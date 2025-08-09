@@ -1,3 +1,4 @@
+#include "student.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -13,39 +14,6 @@ void insertNewStudent();
 void printStudentList();
 void deleteStudent();
 void findStudentByName();
-
-class Student
-{
-    int id;
-    std::string name;
-
-public:
-    Student(std::string studentName, int studentId)
-    {
-        name = studentName;
-        id = studentId;
-    }
-
-    void setId(int value)
-    {
-        id = value;
-    }
-
-    int getId()
-    {
-        return id;
-    }
-
-    void setName(std::string value)
-    {
-        name = value;
-    }
-
-    std::string getName()
-    {
-        return name;
-    }
-};
 
 int seqStudentId{0};
 std::vector<Student> students{};
@@ -191,7 +159,7 @@ void insertNewStudent()
     std::string inputStudent{};
     std::cout << "Insert new student name : " << std::endl;
     std::cin >> inputStudent;
-    Student student(inputStudent, ++seqStudentId);
+    Student student(++seqStudentId, inputStudent);
     students.push_back(student);
     std::cout << "Data inserted!" << std::endl;
 }

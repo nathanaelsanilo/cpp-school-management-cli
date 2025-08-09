@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Change these as needed
-SOURCE_FILE="main.cpp print.cpp"
+SOURCE_FILE="main.cpp print.cpp student.cpp"
 OUTPUT_FILE="main"
 CXX_STANDARD="c++17"
 
