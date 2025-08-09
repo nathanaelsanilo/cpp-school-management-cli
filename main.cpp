@@ -14,6 +14,7 @@ void insertNewStudent();
 void printStudentList();
 void deleteStudent();
 void findStudentByName();
+void clearBuffer();
 
 int seqStudentId{0};
 std::vector<Student> students{};
@@ -158,7 +159,8 @@ void insertNewStudent()
 {
     std::string inputStudent{};
     std::cout << "Insert new student name : " << std::endl;
-    std::cin >> inputStudent;
+    clearBuffer();
+    std::getline(std::cin, inputStudent);
     Student student(++seqStudentId, inputStudent);
     students.push_back(student);
     std::cout << "Data inserted!" << std::endl;
@@ -191,7 +193,8 @@ void deleteStudent()
 
     std::string inputStudent{};
     std::cout << "You wish to delete student. Enter student name : ";
-    std::cin >> inputStudent;
+    clearBuffer();
+    std::getline(std::cin, inputStudent);
     std::cout << std::endl;
 
     bool isStudentExist{false};
@@ -223,7 +226,8 @@ void findStudentByName()
 
     std::string inputStudent{};
     std::cout << "Input name : ";
-    std::cin >> inputStudent;
+    clearBuffer();
+    std::getline(std::cin, inputStudent);
 
     for (std::vector<Student>::iterator it = students.begin(); it != students.end(); ++it)
     {
@@ -247,4 +251,9 @@ void findStudentByName()
     }
 
     std::cout << std::endl;
+}
+
+void clearBuffer()
+{
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
