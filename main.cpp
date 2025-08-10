@@ -15,6 +15,7 @@ void printStudentList();
 void deleteStudent();
 void findStudentByName();
 void clearBuffer();
+int getIntegerInput(const std::string &prompt);
 
 int seqStudentId{0};
 std::vector<Student> students{};
@@ -50,19 +51,6 @@ int main()
     return 0;
 }
 
-bool validateSelectedMenu(int menus[], int menusSize, int selectedMenu)
-{
-    bool isValidChoice{false};
-    for (int i{0}; i < menusSize; ++i)
-    {
-        if (menus[i] == selectedMenu)
-        {
-            isValidChoice = true;
-        }
-    }
-    return isValidChoice;
-}
-
 int getUserSelectMainMenu()
 {
     int menus[]{0, 1};
@@ -73,8 +61,7 @@ int getUserSelectMainMenu()
     while (validating)
     {
         std::cout << std::endl;
-        std::cout << "Go to menu : ";
-        std::cin >> choice;
+        choice = getIntegerInput("Go to menu : ");
         if (validateSelectedMenu(menus, menusSize, choice) == true)
         {
             validating = false;
@@ -98,8 +85,7 @@ int getUserStudentManagementMenu()
     while (validating)
     {
         std::cout << std::endl;
-        std::cout << "Go to menu : ";
-        std::cin >> choice;
+        choice = getIntegerInput("Go to menu : ");
         if (validateSelectedMenu(menus, menusSize, choice) == true)
         {
             validating = false;
@@ -251,9 +237,4 @@ void findStudentByName()
     }
 
     std::cout << std::endl;
-}
-
-void clearBuffer()
-{
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
